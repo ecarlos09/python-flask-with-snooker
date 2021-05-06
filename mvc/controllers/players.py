@@ -3,9 +3,11 @@
 from werkzeug.exceptions import BadRequest
 
 from ..data.players_list import snooker_players
+# from ..models.player import Player
 
 def index(req):
     return [p for p in snooker_players], 200
+    # return Player.get_all(self), 200
 
 def show(req, id):
     return find_by_id(id), 200
@@ -13,9 +15,8 @@ def show(req, id):
 def create(req):
     new_player = req.get_json()
     new_player["id"] = sorted([p["id"] for p in snooker_players])[-1] + 1
-    # len(snooker_players)-1
     snooker_players.append(new_player)
-    return new_player, 201
+    return [new_player], 201
 
 ''' Helpers '''
 
