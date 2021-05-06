@@ -16,7 +16,14 @@ def create(req):
     new_player = req.get_json()
     new_player["id"] = sorted([p["id"] for p in snooker_players])[-1] + 1
     snooker_players.append(new_player)
-    return [new_player], 201
+    return new_player, 201
+
+def update(req, id):
+    player = find_by_id(id)
+    data = req.get_json()
+    for key, val in data.items():
+        player[key] = val
+    return player, 200
 
 ''' Helpers '''
 
