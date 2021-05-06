@@ -19,11 +19,11 @@ def players_handler():
     resp, code = fns[request.method](request)
     return jsonify(resp), code
 
-@app.route('/api/players/<int:player_id>', methods=['GET'])
+@app.route('/api/players/<int:player_id>', methods=['GET', 'PATCH'])
 def player_handler(player_id):
     fns = {
         'GET': players.show,
-        # 'PATCH': cats.update,
+        'PATCH': players.update,
         # 'PUT': cats.update,
         # 'DELETE': cats.destroy
     }
