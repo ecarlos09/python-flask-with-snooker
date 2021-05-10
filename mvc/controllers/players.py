@@ -25,6 +25,11 @@ def update(req, id):
         player[key] = val
     return player, 200
 
+def destroy(req, id):
+    player_to_delete = find_by_id(id)
+    snooker_players.remove(player_to_delete)
+    return player_to_delete, 204
+
 ''' Helpers '''
 
 def find_by_id(id):
