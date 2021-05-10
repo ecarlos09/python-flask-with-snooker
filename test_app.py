@@ -1,4 +1,6 @@
 import json
+import requests_mock
+from requests.exceptions import HttpError
 
 class TestAPICase():
     def test_welcome(self, api):
@@ -37,16 +39,16 @@ class TestAPICase():
         assert res.json["stats"]["world_ranking"] == 1
         assert res.json["nationality"] == "Test_Nation_1"
 
-    # def test_delete_cat(self, api):
-    #     res = api.delete('/api/cats/1')
-    #     assert res.status == '204 NO CONTENT'
+    def test_delete_player(self, api):
+        res = api.delete('api/players/1')
+        assert res.status == '204 NO CONTENT'
 
     def test_not_found(self, api):
         res = api.get('/notaroute')
         assert res.status == '404 NOT FOUND'
         assert 'Oops!' in res.json['message']
 
-    # def test_server_error(self, api):
-    #     res =  ...
-    #     assert res.status == '500 INTERNAL SERVER ERROR'
-    #     assert 'It\'s not you' in res.json["message"] 
+    def test_server_error(self, api):
+        res =  api.delete('api/players/3')
+        assert res.status == '500 INTERNAL SERVER ERROR'
+        assert 'It\'s not you' in res.json["message"]
