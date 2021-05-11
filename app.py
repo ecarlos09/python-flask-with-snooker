@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from flask_cors import CORS
 from mvc.controllers import players
 from werkzeug import exceptions
@@ -8,7 +8,8 @@ CORS(app)
 
 @app.route('/')
 def root():
-    return jsonify({"message": 'Welcome to my Flask API for snooker players!'}), 200
+    # return jsonify({"message": 'Welcome to my Flask API for snooker players!'}), 200
+    return render_template('base.html', title='Snooker Flask', heading='Welcome to my Flask API for snooker players!')
 
 @app.route('/api/players', methods=['GET', 'POST'])
 def players_handler():
